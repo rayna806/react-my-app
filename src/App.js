@@ -1,81 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import {createContext, useContext, useReducer, useState} from "react";
+import {Counter} from "./counter/Counter";
+import {CounterGroupGenerator} from "./counter/CounterGroupGenerator";
+import {CounterGroup} from "./counter/CounterGroup";
+// export const counterContext=createContext();
 
-function Counter() {
-    const [num,setNum] = useState(5);
 
+export const CounterContext = createContext();
+export const initState = {
+    count: 4
+};
 
-    function add(){
-        setNum(num+1)
-    }
-    function sub(){
-        setNum(num-1)
-    }
+function MultipleCounter() {
+    const {state,dispatch} = useContext(CounterContext)
+    // const [counterSize, setCounterSize] = useState(state.count);
     return <div>
-        <button onClick={add}>+</button>
-        {num}
-        <button onClick={sub}>-</button>
+        Answer 8 exercise-MultipleCounter
+        <CounterGroupGenerator counterSize = {state.count}/>
+        <CounterGroup counterSize={state.count}/>
+
     </div>
 }
-    function CounterGroup(props) {
 
-        return <div>
-            {
-                new Array(props.counterSize).fill(1).map((value,index) =>{
-                    return <Counter key={index} />
-                })
-            }
-        </div>;
+
+function counterReducer(state, action) {
+
+    // console.log(statr,action)
+    switch (action.type){
+        case "UPDATE_SIZE":
+            return{count: action.payload.number}
+        case "RESET":
+            return {count:0};
+        default:
+            return state;
     }
 
-    function CounterGroupGenerator(props) {
-        function updateSizer(event) {
-            console.log(event.target.value);
-            console.log(typeof event.target.value);
-            let number= parseInt(event.target.value);
-            if(!isNaN(number)){
-                props.onUpdateSize(number);
-            }
-        }
-
-        function reset() {
-            props.onUpdateSize(0);
-        }
-
-        return <div>
-            size:
-            <input type={"number"}
-                   value={props.counterSize || 0}
-                   onChange={updateSizer}
-            />
-            <button onClick={reset}>Reset</button>
-
-        </div>;
-    }
-
-    function MultipeCounter() {
-        const [counterSize,setCounterSize] = useState(3);
-        return <div>
-            <CounterGroupGenerator counterSize={counterSize}
-                                   onUpdateSize={setCounterSize}
-
-            />
-            <CounterGroup counterSize={counterSize} />
-
-        </div>
-    }
-
-
+}
 
 function App() {
-  return (
-    <div className="App">
-            <MultipeCounter />
-            <Counter />
 
-    </div>
-  );
+    const [state, dispatch ]= useReducer(counterReducer,initState);
+    return (
+        <div className="App">
+            {/*<Counter />*/}
+            <CounterContext.Provider value={{
+                state:state,
+                dispatch:dispatch}}>
+                <MultipleCounter />
+            </CounterContext.Provider>
+        </div>
+    );
 }
 
 export default App;
