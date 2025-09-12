@@ -1,4 +1,5 @@
-import {createContext, useContext} from "react";
+import "./App.css";
+import {createContext, useContext, useReducer} from "react";
 
 export const initState = [
     {id: 1, text: "the first todo", done: false},
@@ -6,16 +7,59 @@ export const initState = [
 ];
 export const TodoContext = createContext()
 
+function TodoItem(props) {
+    const{state, dispatch} = useContext(TodoContext);
+
+    function makeAsDone(){
+        dispatch({
+            type:"DONE",
+            payload:{id:props.todo.id,}
+        })
+    }
+
+    return <div className={"todo-item"}>
+        <span className={props.todo.done ? "todo-done" : ""}
+              onClick={makeAsDone}
+        >
+            {props.todo.text}
+        </span>
+    </div>;
+}
+
 function TodoGroup() {
-    return null;
+    const{state, dispatch} = useContext(TodoContext);
+    return <div>
+        {
+            state.map((item,index) => {
+            return <TodoItem todo={item} key={index} index={index}/>
+            })
+        }
+    </div>
 }
 
 export function todoReducer(state, action) {
-    return state
+    switch (action.type) {
+        case "TOGGLE_TODO":
+            /// copy
+            const newState = [...state];
+            const id = action.payload.id;
+            return newState.map((value) => {
+                if (value.id === id) {
+                    return { id,
+                        text: value.text,
+                        done: !value.done
+                    };
+                }
+
+                return value
+            })
+        default:
+            return state;
+    }
 }
 
 function App() {
-    const [state, dispatch] = useContext(todoReducer, initState);
+    const [state, dispatch] = useReducer(todoReducer, initState);
     return (
         <div>
             <TodoContext.Provider value={{state, dispatch}}>
