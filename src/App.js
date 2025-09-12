@@ -1,40 +1,22 @@
-import "./App.css";
 import {createContext, useContext, useReducer} from "react";
+import "./App.css"
+import {TodoItem} from "./component/TodoItem";
 
 export const initState = [
     {id: 1, text: "the first todo", done: false},
-    {id: 2, text: "the second todo", done: false},
+    {id: 2, text: "the second todo", done: true},
 ];
 export const TodoContext = createContext()
 
-function TodoItem(props) {
-    const{state, dispatch} = useContext(TodoContext);
-
-    function makeAsDone(){
-        dispatch({
-            type:"DONE",
-            payload:{id:props.todo.id,}
-        })
-    }
-
-    return <div className={"todo-item"}>
-        <span className={props.todo.done ? "todo-done" : ""}
-              onClick={makeAsDone}
-        >
-            {props.todo.text}
-        </span>
-    </div>;
-}
-
 function TodoGroup() {
-    const{state, dispatch} = useContext(TodoContext);
-    return <div>
-        {
-            state.map((item,index) => {
-            return <TodoItem todo={item} key={index} index={index}/>
-            })
-        }
-    </div>
+    const {state, dispatch} = useContext(TodoContext);
+    return (
+        <div>
+            {state.map((item, index) => {
+                return <TodoItem todo={item} key={index} index={index}/>
+            })}
+        </div>
+    );
 }
 
 export function todoReducer(state, action) {
