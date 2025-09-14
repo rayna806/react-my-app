@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {TodoContext} from "../contexts/TodoContext";
+import {TodoContext} from "../context/TodoContext";
 import'./TodoList.css'
 import TodoGenerator from "./TodoGenerator";
 const TodoList = () => {
