@@ -1,6 +1,6 @@
 import {createContext, useContext, useReducer} from "react";
 import "./App.css"
-import {TodoItem} from "./component/TodoItem";
+import {TodoItem} from "./components/TodoItem";
 
 export const initState = [
     {id: 1, text: "the first todo", done: false},
