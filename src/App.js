@@ -1,9 +1,10 @@
-import { useReducer } from "react";
+import {useReducer} from "react";
 import './App.css';
-import TodoList from "./components/TodoList";
-import { initialState, todoReducer } from "./reducers/todoReducer";
-import { TodoContext } from "./context/TodoContext";
-import {createBrowserRouter, NavLink, Outlet, RouterProvider,useRouteError} from "react-router";
+import {initialState, todoReducer} from "./reducers/todoReducer";
+import {TodoContext} from "./context/TodoContext";
+import {createBrowserRouter, NavLink, Outlet, RouterProvider} from "react-router";
+import {ErrorPage} from "./pages/ErrorPage";
+import {HomePage} from "./pages/HomePage";
 
 function DefaultLayout() {
     return <div>
@@ -19,17 +20,6 @@ function DefaultLayout() {
         </main>
     </div>
 }
-function ErrorPage() {
-    const error = useRouteError();
-    return <div>
-        {error.status ===404
-            ?<div><h1>404 not found</h1><span>Try</span></div>
-            :<div>{JSON.stringify(error)}</div>}
-
-    </div>;
-}
-
-
 
 const routes= createBrowserRouter([
     {
@@ -39,7 +29,7 @@ const routes= createBrowserRouter([
         children: [
             {
                 path: "/",
-                element:<TodoList />
+                element:<HomePage />
             }
         ]
     }
