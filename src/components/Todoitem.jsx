@@ -2,8 +2,10 @@ import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { useNavigate } from "react-router";
 import { updateTodo, deleteTodo } from "../api/mockApi";
+import {useTodoService} from "../useTodoService";
 
 function Todoitem({todo, toggleTodo}) {
+    const {updateTodo,deleteTodo} = useTodoService();
     const { dispatch } = useContext(TodoContext);
     const navigate = useNavigate();
     if (!todo) return null;

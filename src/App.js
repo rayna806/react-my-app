@@ -5,6 +5,7 @@ import {TodoContext} from "./context/TodoContext";
 import {NavLink, Outlet, RouterProvider} from "react-router";
 import {routes} from "./routes/Routes";
 import {api} from "./api/mockApi";
+import {useTodoService} from "./useTodoService";
 
 function DefaultLayout() {
     return <div>
@@ -25,12 +26,14 @@ function DefaultLayout() {
 
 function App() {
     // the Hooks API manage component data state
+
     const [state, dispatch] = useReducer(todoReducer, initialState);
+    const {loadTodos} = useTodoService();
     useEffect(()=> {
-        api.get("/todos")
-            .then(response => response.data)
+        loadTodos()
             .then(todos => dispatch({type:"LOAD_TODOS", payload: todos}))
     },[dispatch])
+
 
 
     return (

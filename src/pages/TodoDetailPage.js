@@ -2,8 +2,10 @@ import {useParams} from "react-router";
 import {useState, useEffect} from "react";
 import Todoitem from "../components/Todoitem";
 import {getTodoById} from "../api/mockApi";
+import {useTodoService} from "../useTodoService";
 
 export function TodoDetailPage() {
+    const {getTodoById} = useTodoService();
     const {id} = useParams();
     const [todo, setTodo] = useState(null);
     const [loading, setLoading] = useState(true);
