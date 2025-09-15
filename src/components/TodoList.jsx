@@ -11,8 +11,8 @@ const TodoList = () => {
     }
     return (
         <>
-            <TodoGroup todos={state} onToggleTodo={toggleTodo} />
             <TodoGenerator />
+            <TodoGroup todos={state} onToggleTodo={toggleTodo} />
         </>
     );
 }

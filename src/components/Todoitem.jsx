@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { useNavigate } from "react-router";
-import { updateTodo, deleteTodo } from "../api/mockApi";
 import { useTodoService } from "../useTodoService";
 import { Modal, Input, Button, Space } from "antd";
+import { EditOutlined } from '@ant-design/icons';
 
-function Todoitem({ todo, toggleTodo }) {
+function Todoitem({ todo }) {
   const { updateTodo, deleteTodo, editbyId } = useTodoService();
   const { dispatch } = useContext(TodoContext);
   const navigate = useNavigate();
@@ -55,19 +55,32 @@ function Todoitem({ todo, toggleTodo }) {
   return (
     <div key={id} className="todo-row">
       <div className={done ? "todo-item done" : "todo-item"}>
-        <span onClick={handleToggle} style={{ cursor: "pointer" }}>
+        <span onClick={handleToggle} style={{ cursor: "pointer", flex: 1 }}>
           {text}
         </span>
+        <Button
+          type="text"
+          icon={<EditOutlined />}
+          size="small"
+          onClick={handleEdit}
+          style={{ marginLeft: 12 }}
+        />
       </div>
-      <Space>
-        <Button onClick={handleEdit}>Edit</Button>
-        <Button danger onClick={handleDelete}>
-          Delete
+      <Space size={16} style={{ marginTop: 8 }}>
+        <Button
+          danger
+          size="small"
+          onClick={handleDelete }
+          padding={8}
+        >
+          ×
         </Button>
-        <Button onClick={() => navigate(`/todos/${id}`)}>Detail</Button>
+        <Button size="small" onClick={() => navigate(`/todos/${id}`)}>
+          Detail
+        </Button>
       </Space>
       <Modal
-        title="Basic Modal"
+        title="Edit Todo"
         open={isModalOpen}
         onCancel={handleCancel}
         onOk={handleOk}
