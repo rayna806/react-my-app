@@ -5,12 +5,10 @@ function TodoGroup({ todos, onToggleTodo }) {
         <div className="todo-group">
             <div className="todo-title">TodoList</div>
             {
-                todos.map(({id, text, done}) => (
+                todos.map(todo => (
                     <Todoitem
-                        key={id}
-                        id={id}
-                        text={text}
-                        done={done}
+                        key={todo.id}
+                        todo={todo}
                         toggleTodo={onToggleTodo}
                     />
                 ))
