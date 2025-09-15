@@ -4,14 +4,7 @@ import {initialState, todoReducer} from "./reducers/todoReducer";
 import {TodoContext} from "./context/TodoContext";
 import {NavLink, Outlet, RouterProvider} from "react-router";
 import {routes} from "./routes/Routes";
-import {TodoDetailPage} from "./pages/TodoDetailPage";
-import axios from "axios";
-
-const api = axios.create({
-    baseURL:"https://68c7ac935d8d9f5147328860.mockapi.io/",
-    headers: {"Content-Type":"application/json"},
-    timeout:10_000
-})
+import {api} from "./api/mockApi";
 
 function DefaultLayout() {
     return <div>

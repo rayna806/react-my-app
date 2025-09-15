@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 import './TodoList.css';
+import {api} from "../api/mockApi";
 
 const TodoGenerator = () => {
     const [text, setText] = useState("");
@@ -8,9 +9,14 @@ const TodoGenerator = () => {
 
     function addTodo() {
         if (text.trim()) {
-            dispatch({ type: "ADD", text });
+            api.post("/todos", { text: text.trim(), done: false })
+                .then(res => res.data)
+                .then(todo =>
+                        dispatch({type:"ADD", payload: todo})
+                )
             setText("");
         }
+
     }
 
     return (
