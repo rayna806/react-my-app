@@ -18,6 +18,8 @@
     width: 280px;
     border: 1px solid black;
     padding: 5px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .todo-item.done {
     text-decoration: line-through;
@@ -36,6 +38,10 @@
     padding: 8px;
     display: flex;
     gap: 8px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 .todo-generator input {
     padding: 4px 8px;
