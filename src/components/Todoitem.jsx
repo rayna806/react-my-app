@@ -21,9 +21,14 @@ function Todoitem({ todo, toggleTodo }) {
     });
   }
   function handleDelete() {
-    deleteTodo(id).then(() => {
-      dispatch({ type: "DELETE_TODO", payload: id });
-    });
+    deleteTodo(String(id))
+      .then(() => {
+        dispatch({ type: "DELETE", id });
+      })
+      .catch((error) => {
+        console.error('Delete failed:', error);
+        // 可以在这里加用户提示
+      });
   }
   function handleEdit() {
     setEditText(text);
@@ -83,4 +88,3 @@ function Todoitem({ todo, toggleTodo }) {
 }
 
 export default Todoitem;
-

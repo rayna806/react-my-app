@@ -12,10 +12,9 @@ export const todoReducer = (state, action) => {
                 todo.id === action.id ? {...todo, done: !todo.done} : todo
             );
         case 'ADD':
-            const nextId = state.length ? Math.max(...state.map(t => t.id)) + 1 : 1;
             return [
                 ...state,
-                { id: nextId, text: action.text, done: false }
+                action.payload
             ];
         case 'DELETE':
             return state.filter(todo => todo.id !== action.id);
