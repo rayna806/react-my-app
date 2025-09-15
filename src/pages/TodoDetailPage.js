@@ -1,19 +1,33 @@
 import {useParams} from "react-router";
-import {useContext} from "react";
-import {TodoContext} from "../context/TodoContext";
+import {useState, useEffect} from "react";
 import Todoitem from "../components/Todoitem";
+import {getTodoById} from "../api/mockApi";
 
 export function TodoDetailPage() {
-    const {id} = useParams()
-    const {state, dispatch} = useContext(TodoContext);
-    const todo = state.filter((todo) => todo.id === id); // Fix syntax error by changing '}' to ';'
+    const {id} = useParams();
+    const [todo, setTodo] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    if (todo.length === 0) {
-        return <div>Not found Todo</div>
+    useEffect(() => {
+        getTodoById(id)
+            .then(data => {
+                setTodo(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setTodo(null);
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
-
+    if (!todo) {
+        return <div>Not found Todo</div>;
+    }
     return <div>
-        <Todoitem todo={todo[0]} index={id}/>
-    </div>
-
+        <h2>Todo Detail</h2>
+        <Todoitem todo={todo} toggleTodo={() => {}} />
+    </div>;
 }
