@@ -10,12 +10,16 @@ export function useTodoService() {
     const updateTodo = (id, todo) => {
         return api.put(`/todos/${id}`, todo).then(res => res.data);
     }
+    const editbyId = (id) => {
+        return api.get(`/todos/${id}`).then(res => res.data);
+    }
     const deleteTodo = (id) => {
         return api.delete(`/todos/${id}`).then(res => res.data);
     }
     const getTodoById = (id) => {
         return api.get(`/todos/${id}`).then(res => res.data);
     }
+
 
     return {
         loadTodos,
