@@ -1,9 +1,9 @@
 import Todoitem from "./Todoitem";
 
-function TodoGroup({ todos, onToggleTodo }) {
+function TodoGroup({ todos, onToggleTodo, title = "TodoList" }) {
     return (
         <div className="todo-group">
-            <div className="todo-title">TodoList</div>
+            {title ? <div className="todo-title">{title}</div> : null}
             {
                 todos.map(todo => (
                     <Todoitem
