@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useTodoService } from "../useTodoService";
 import { Modal, Input, Button, Space } from "antd";
 import { EditOutlined } from '@ant-design/icons';
+import "./TodoList.css";
 
 function Todoitem({ todo }) {
   const { updateTodo, deleteTodo, editbyId } = useTodoService();
@@ -67,11 +68,10 @@ function Todoitem({ todo }) {
         />
       </div>
       <Space size={16} style={{ marginTop: 8 }}>
-        <Button
+        <Button className="delete-btn"
           danger
           size="small"
-          onClick={handleDelete }
-          padding={8}
+          onClick={handleDelete}
         >
           ×
         </Button>

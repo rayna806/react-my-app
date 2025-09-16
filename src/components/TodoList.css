@@ -25,7 +25,7 @@
     background: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 12px 16px 20px 16px; /* increased bottom padding for more space below text */
+    padding: 12px 16px 20px 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     word-break: break-all;
     display: flex;
@@ -40,12 +40,12 @@
     color: #aaa;
     background: #f0f0f0;
 }
-.delete-btn, .ant-btn-danger {
+.delete-btn{
     margin-left: 16px;
-    background: #ff4d4f !important;
+    background: #d50000 !important;
     color: #fff !important;
     border: none;
-    padding: 4px 12px;
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
